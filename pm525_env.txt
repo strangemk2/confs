@@ -1,0 +1,61 @@
+#export CFLAGS='-s -O2 -I/opt/pm525/server/include -L/opt/pm525/server/lib'
+export LD_LIBRARY_PATH=/opt/pm525/server/library/lib
+export CFLAGS="-s -O2"
+export CXXFLAGS='-s -O2'
+export CPPFLAGS="-I/opt/pm525/server/library/include"
+export LDFLAGS='-L/opt/pm525/server/library/lib'
+export PKG_CONFIG_PATH=/opt/pm525/server/library/lib/pkgconfig
+
+pcre
+./configure --prefix=/opt/pm525/server/library --enable-utf8 --enable-pcre16 --enable-pcre32
+
+zlib
+./configure --prefix=/opt/pm525/server/library
+
+openssl
+./config --prefix=/opt/pm525/server/library
+
+nginx
+./configure --prefix=/opt/pm525/server/nginx --with-pcre=/home/void/tmp/pcre-8.32 --with-http_ssl_module --with-zlib=/home/void/tmp/zlib-1.2.8 --with-openssl=/home/void/tmp/openssl-1.0.1e
+
+libxml2
+./configure --prefix=/opt/pm525/server/library --without-python
+
+bzip2
+make; make install PREFIX=/opt/pm525/server/library
+
+curl
+LIBS='-ldl' ./configure --prefix=/opt/pm525/server/library --with-ssl
+
+libjpeg
+./configure --prefix=/opt/pm525/server/library
+
+libpng
+./configure --prefix=/opt/pm525/server/library
+
+t1lib
+./configure --prefix=/opt/pm525/server/library
+
+freetype
+./configure --prefix=/opt/pm525/server/library
+
+gettext
+./configure --prefix=/opt/pm525/server/library
+
+gmp
+ABI=32 ./configure --prefix=/opt/pm525/server/library
+
+libmcrypt
+./configure --prefix=/opt/pm525/server/library
+
+
+php
+ln -s libltdl.so.7 libltdl.so
+./configure --prefix=/opt/pm525/server/php --with-libxml-dir=/opt/pm525/server/library --enable-fpm --with-openssl=/opt/pm525/server/library --with-zlib=/opt/pm525/server/library --enable-bcmath --enable-calendar --with-bz2=/opt/pm525/server/library --with-curl=/opt/pm525/server/library --enable-dba --enable-exif --enable-ftp --with-gd --with-jpeg-dir=/opt/pm525/server/library --with-png-dir=/opt/pm525/server/library --with-t1lib=/opt/pm525/server/library --with-freetype-dir=/opt/pm525/server/library --enable-gd-native-ttf --enable-gd-jis-conv --with-gettext --with-gmp=/opt/pm525/server/library --enable-mbstring --with-mcrypt=/opt/pm525/server/library --enable-zip
+
+apc
+/opt/pm525/server/php/bin/phpize
+./configure --with-php-config=/opt/pm525/server/php/bin/php-config
+make && make install
+
+sudo ./php-fpm -y /opt/pm525/settings/php-fpm.conf -F -p /opt/pm525/settings/php-fpm_prefix
