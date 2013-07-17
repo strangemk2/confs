@@ -1,0 +1,12 @@
+some memo about how to check out zimbra open source version from Perforce.
+
+1. As zimbra uses perforce, we must get a perforce client.
+http://www.perforce.com/downloads/Perforce-Software-Version-Management/complete_list/20-20#6
+
+2. Perforce command line client is a binary and depends on an absolute folder.
+mkdir /home/public/p4
+
+3. Use p4 client to checkout source.
+p4 -u public -P public1234 -c public-view sync -f //depot/zcs/XXX/...
+XXX is for branch, like "HELIX-714". Dont't forget the last "...".
+Source file will be checkout to /home/public/p4.
